@@ -16,6 +16,87 @@ struct User {
     char status[20];
 };
 
+void adminMenu(struct User users[], int *numUsers) {
+    int choice;
+    while (1) {
+        printf("\n*** Admin Menu ***\n");
+        printf("[1] Add a new User\n");
+        printf("[2] Show All Users.\n");
+        printf("[3] Show Details an user.\n");
+        printf("[4] Lock (Unlock) an user.\n");
+        printf("[5] User Guideline.\n");
+        printf("[6] About Us.\n");
+        printf("[0] Exit Admin Menu\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        getchar(); 
+
+        switch (choice) {
+            case 1:
+                addUser(users, numUsers);
+                break;
+            case 2:
+                showAllUsers(users, *numUsers);
+                break;
+            case 3:
+                {
+                    char username[30];
+                    printf("Enter username to search: ");
+                    fgets(username, sizeof(username), stdin);
+                    username[strcspn(username, "\n")] = '\0';  
+                    showUserDetails(users, *numUsers, username);
+                }
+                break;
+            case 4:
+               
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                
+                break;
+            case 0:
+                return;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+}
+
+void userMenu(struct User users[], int numUsers) {
+    int choice;
+    char userId[20];
+    
+    printf("Enter User ID: ");
+    fgets(userId, sizeof(userId), stdin);
+    userId[strcspn(userId, "\n")] = '\0';  
+
+    while (1) {
+        printf("\n*** User Menu ***\n");
+        printf("[1] View My Profile\n");
+        printf("[2] View My Balance\n");
+        printf("[0] Exit User Menu\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        getchar();  
+
+        switch (choice) {
+            case 1:
+                viewMyProfile(users, numUsers, userId);
+                break;
+            case 2:
+                viewMyBalance(users, numUsers, userId);
+                break;
+            case 0:
+                return;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+}
+
+
 
 void addUser(struct User users[], int *numUsers) {
     if (*numUsers >= 20) {
@@ -188,4 +269,3 @@ void viewMyBalance(struct User users[], int numUsers, char userId[]) {
     }
     printf("User not found!\n");
 }
-
